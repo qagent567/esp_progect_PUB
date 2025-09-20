@@ -41,14 +41,14 @@
 
 ### Шаг 1: Базовая Настройка
 
-1⃣ **Загрузите прошивку на обе ESP32:**
+1 **Загрузите прошивку на обе ESP32:**
 ```bash
 # В PlatformIO терминале
 pio run -t upload --upload-port COM3 # Первая плата
 pio run -t upload --upload-port COM4 # Вторая плата
 ```
 
-2⃣ **Подключитесь к Serial Monitor:**
+2 **Подключитесь к Serial Monitor:**
 ```bash
 # Скорость: 115200 baud
 # Вы увидите приветствие AgriSwarm
@@ -56,7 +56,7 @@ pio run -t upload --upload-port COM4 # Вторая плата
 
 ### Шаг 2: Создание Mesh-Сети
 
-3⃣ **На первой плате (главный узел):**
+3 **На первой плате (главный узел):**
 ```bash
 > node_name main_controller
  Имя узла установлено: main_controller
@@ -68,7 +68,7 @@ pio run -t upload --upload-port COM4 # Вторая плата
  Mesh сеть: готова к подключениям
 ```
 
-4⃣ **На второй плате (датчики):**
+4 **На второй плате (датчики):**
 ```bash
 > node_name sensor_node
  Имя узла установлено: sensor_node
@@ -83,7 +83,7 @@ pio run -t upload --upload-port COM4 # Вторая плата
 
 ### Шаг 3: Проверка Связи
 
-5⃣ **Проверьте соединение:**
+5 **Проверьте соединение:**
 ```bash
 > node_list
 
@@ -350,22 +350,22 @@ COM → +питания
 
 ### Добавление Новых Узлов
 
-1⃣ **Загрузите прошивку на новую ESP32**
-2⃣ **Настройте узел:**
+1 **Загрузите прошивку на новую ESP32**
+2 **Настройте узел:**
 ```bash
 > node_name greenhouse_monitor
 > node_role hybrid # Может быть и датчиком, и актуатором
 > auto_connect
 ```
 
-3⃣ **Добавьте устройства:**
+3 **Добавьте устройства:**
 ```bash
 > pin_setup greenhouse_temp DHT22 4
 > pin_setup greenhouse_fan RELAY 26
 > pin_setup greenhouse_light RELAY 27
 ```
 
-4⃣ **Создайте правила:**
+4 **Создайте правила:**
 ```bash
 > rule_add greenhouse_cooling "IF greenhouse_temp > 30 THEN greenhouse_fan 1"
 > rule_add greenhouse_lighting "IF time > 18:00 THEN greenhouse_light 1"

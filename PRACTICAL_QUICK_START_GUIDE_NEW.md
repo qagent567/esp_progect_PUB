@@ -266,7 +266,7 @@ AgriSwarm Terminal ready
 ```bash
 > mesh_status
  Mesh Network Status:
- Node ID: 3847562
+ Node ID: 38475621
  Подключенные узлы: 0
  Статус: Поиск соседей...
  Режим: Host (AP) + Mesh
