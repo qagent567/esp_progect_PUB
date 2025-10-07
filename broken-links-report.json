@@ -1,0 +1,104 @@
+﻿[
+    {
+        "Link":  "url",
+        "Reason":  "File not found",
+        "File":  "link-check-report.md",
+        "Text":  "text"
+    },
+    {
+        "Link":  "LICENSE",
+        "Reason":  "File not found",
+        "File":  "README.md",
+        "Text":  "LICENSE"
+    },
+    {
+        "Link":  "���������.md",
+        "Reason":  "File not found",
+        "File":  "ИНСТРУКЦИЯ_ДЛЯ_НАЧИНАЮЩИХ.md",
+        "Text":  "🧭 Полная навигация"
+    },
+    {
+        "Link":  "���������.md",
+        "Reason":  "File not found",
+        "File":  "ИНСТРУКЦИЯ_ДЛЯ_НАЧИНАЮЩИХ.md",
+        "Text":  "🧭 Полная навигация"
+    },
+    {
+        "Link":  "���������.md",
+        "Reason":  "File not found",
+        "File":  "РЕАЛЬНЫЕ_ВОЗМОЖНОСТИ_AGRISWARM.md",
+        "Text":  "🧭 Полная навигация"
+    },
+    {
+        "Link":  "���������.md",
+        "Reason":  "File not found",
+        "File":  "РЕАЛЬНЫЕ_ВОЗМОЖНОСТИ_AGRISWARM.md",
+        "Text":  "🧭 Полная навигация"
+    },
+    {
+        "Link":  "../../���������.md",
+        "Reason":  "File not found",
+        "File":  "docs\\архитектура\\АРХИТЕКТУРА_ЯДРА.md",
+        "Text":  "🧭 Полная навигация"
+    },
+    {
+        "Link":  "const String\u0026 sensorId, float value, SensorDataType type",
+        "Reason":  "File not found",
+        "File":  "docs\\архитектура\\ТИП_АРХИТЕКТУРЫ.md",
+        "Text":  "\u0026"
+    },
+    {
+        "Link":  "const RuleAction\u0026 action",
+        "Reason":  "File not found",
+        "File":  "docs\\архитектура\\ТИП_АРХИТЕКТУРЫ.md",
+        "Text":  "\u0026"
+    },
+    {
+        "Link":  "uint32_t from, const String\u0026 sensorId, float value",
+        "Reason":  "File not found",
+        "File":  "docs\\архитектура\\ТИП_АРХИТЕКТУРЫ.md",
+        "Text":  "\u0026"
+    },
+    {
+        "Link":  "uint32_t nodeId, const String\u0026 message",
+        "Reason":  "File not found",
+        "File":  "docs\\руководства\\РУКОВОДСТВО_РАЗРАБОТЧИКА.md",
+        "Text":  "\u0026"
+    },
+    {
+        "Link":  "const RuleAction\u0026 action",
+        "Reason":  "File not found",
+        "File":  "docs\\руководства\\РУКОВОДСТВО_РАЗРАБОТЧИКА.md",
+        "Text":  "\u0026"
+    },
+    {
+        "Link":  "const String\u0026 command",
+        "Reason":  "File not found",
+        "File":  "docs\\руководства\\РУКОВОДСТВО_РАЗРАБОТЧИКА.md",
+        "Text":  "\u0026"
+    },
+    {
+        "Link":  "uint32_t from, String\u0026 msg",
+        "Reason":  "File not found",
+        "File":  "docs\\руководства\\РУКОВОДСТВО_РАЗРАБОТЧИКА.md",
+        "Text":  "this"
+    },
+    {
+        "Link":  "uint32_t nodeId",
+        "Reason":  "File not found",
+        "File":  "docs\\руководства\\РУКОВОДСТВО_РАЗРАБОТЧИКА.md",
+        "Text":  "this"
+    },
+    {
+        "Link":  "uint32_t nodeId",
+        "Reason":  "File not found",
+        "File":  "docs\\руководства\\РУКОВОДСТВО_РАЗРАБОТЧИКА.md",
+        "Text":  "this"
+    },
+    {
+        "Link":  "uint32_t from, const JsonDocument\u0026 doc",
+        "Reason":  "File not found",
+        "File":  "docs\\руководства\\РУКОВОДСТВО_РАЗРАБОТЧИКА.md",
+        "Text":  "this"
+    }
+]

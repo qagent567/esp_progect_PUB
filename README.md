@@ -1,12 +1,12 @@
 <div align="center">
 
-# 📚 AgriSwarm Documentation
+# 📚 Документация AgriSwarm
 
 ### *Система автоматизации на ESP32 с mesh-сетью*
 
 [![Version](https://img.shields.io/badge/📦_version-0.3.7--bu-58A6FF?style=for-the-badge&logo=semver&logoColor=white)](https://github.com/yourusername/agriswarm)
 [![Platform](https://img.shields.io/badge/🔧_platform-ESP32-3FB950?style=for-the-badge&logo=espressif&logoColor=white)](https://www.espressif.com/en/products/socs/esp32)
-[![License](https://img.shields.io/badge/📄_license-MIT-FFA657?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![License](https://img.shields.io/badge/📄_license-MIT-FFA657?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](#)
 [![Status](https://img.shields.io/badge/⚡_status-Alpha-F0E68C?style=for-the-badge)](https://github.com/yourusername/agriswarm)
 [![Language](https://img.shields.io/badge/🌐_язык-Русский-F85149?style=for-the-badge)](README.md)
 
@@ -27,7 +27,7 @@
 [📁 Структура](СТРУКТУРА_ПРОЕКТА.md) • 
 [⚖️ Возможности](РЕАЛЬНЫЕ_ВОЗМОЖНОСТИ_AGRISWARM.md) • 
 [🧭 Навигация](НАВИГАЦИЯ.md) • 
-[❓ FAQ](FAQ.md) • 
+[❓ FAQ](справочники/FAQ.md) • 
 [📖 Глоссарий](ГЛОССАРИЙ.md)
 
 </div>
@@ -496,7 +496,7 @@ pio device monitor
 | Документ | Описание |
 |----------|----------|
 | 🔍 [Типичные проблемы](отладка/ТИПИЧНЫЕ_ПРОБЛЕМЫ.md) | FAQ и решения |
-| 🛠️ [Troubleshooting](инструкции/РУКОВОДСТВО_ПО_ОТЛАДКЕ_И_TROUBLESHOOTING.md) | Диагностика проблем |
+| 🛠️ [Устранение неполадок](инструкции/РУКОВОДСТВО_ПО_ОТЛАДКЕ_И_TROUBLESHOOTING.md) | Диагностика проблем |
 
 ---
 
