@@ -57,6 +57,16 @@
 
 ---
 
+### Примечания для SERVO
+
+- Используйте пины с поддержкой PWM (LEDC) для стабильного сигнала
+- Питание серво от отдельного 5V источника, общая земля с ESP32
+- При дергании уменьшайте `speed` и включайте `smooth`:
+  ```bash
+  servo_set gate_servo 90 50    # Уменьшить скорость (было 80)
+  pin_setup gate_servo --smooth on  # Включить плавное движение
+  ```
+
 ## 🔌 **ПОДКЛЮЧЕНИЕ ДАТЧИКОВ**
 
 ### **🌡️ DHT22/DHT11 (Температура + Влажность)**
@@ -78,14 +88,14 @@ GPIO4 <----->  DATA (желтый)
 #### **⚙️ Настройка в CLI**
 ```bash
 # 1. Настройка DHT22
-pin setup dht22 4 living_room_temp
+pin_setup living_room_temp DHT22 4 temperature 15 30 30000
 
 # 2. Настройка DHT11
-pin setup dht11 4 bedroom_temp
+pin_setup bedroom_temp DHT11 4 temperature 15 30 30000
 
 # 3. Проверка
-sensor list
-sensor read living_room_temp
+pin_list
+pin_info living_room_temp
 ```
 
 #### **🚨 Распространенные Проблемы**
@@ -111,13 +121,13 @@ GPIO34<----->  SIG (желтый)
 #### **⚙️ Настройка**
 ```bash
 # 1. Настройка датчика
-pin setup analog 34 soil_moisture
+pin_setup soil_moisture ANALOG_IN 34 soil_data 1000 3000 60000
 
 # 2. Калибровка
-sensor calibrate soil_moisture
+pin_calibrate soil_moisture
 
 # 3. Проверка
-sensor read soil_moisture
+pin_info soil_moisture
 ```
 
 #### **📈 Примеры Значений**
@@ -145,13 +155,13 @@ GND   <----->  (через 10kOm резистор)
 #### **⚙️ Настройка**
 ```bash
 # 1. Настройка
-pin setup analog 35 light_level
+pin_setup light_level ANALOG_IN 35 light_data 500 4000 10000
 
 # 2. Калибровка
-sensor calibrate light_level
+pin_calibrate light_level
 
 # 3. Проверка
-sensor read light_level
+pin_info light_level
 ```
 
 ### **🚶 PIR Датчик Движения**
@@ -173,10 +183,10 @@ GPIO34<----->  OUT (желтый)
 #### **⚙️ Настройка**
 ```bash
 # 1. Настройка
-pin setup digital 34 motion_sensor
+pin_setup motion_sensor DIGITAL_IN 34 motion_data
 
 # 2. Проверка
-digital read motion_sensor
+pin_info motion_sensor
 ```
 
 ---
@@ -201,12 +211,12 @@ GND   <----->  GND
 #### **⚙️ Настройка**
 ```bash
 # 1. Настройка реле
-pin setup relay 12 living_room_light
+pin_setup living_room_light RELAY 12 light_control
 
 # 2. Тестирование
-relay on living_room_light
-relay status living_room_light
-relay off living_room_light
+pin_set living_room_light on
+pin_info living_room_light
+pin_set living_room_light off
 ```
 
 #### **🚨 Безопасность**
@@ -232,11 +242,11 @@ GND   <----->  GND
 #### **⚙️ Настройка**
 ```bash
 # 1. Настройка
-pin setup digital 13 alarm_buzzer
+pin_setup alarm_buzzer DIGITAL_OUT 13 buzzer_control
 
 # 2. Тестирование
-digital write alarm_buzzer 1
-digital write alarm_buzzer 0
+pin_set alarm_buzzer on
+pin_set alarm_buzzer off
 ```
 
 ### **🌈 RGB LED Полоса**
@@ -257,12 +267,12 @@ GND   <----->  GND
 #### **⚙️ Настройка**
 ```bash
 # 1. Настройка
-pin setup rgb_led 14 living_room_rgb
+pin_setup living_room_rgb PWM 14 rgb_control
 
 # 2. Тестирование
-rgb color red
-rgb color green
-rgb color blue
+pin_set living_room_rgb 255   # Красный
+pin_set living_room_rgb 128   # Зеленый
+pin_set living_room_rgb 0     # Синий
 ```
 
 ---

@@ -49,7 +49,7 @@ ESP32          DHT22
 GND   <----->  GND (черный)
 GPIO4 <----->  DATA (желтый)
 ```
-Затем: `pin setup dht22 4 temp1`
+Затем: `pin_setup temp1 DHT22 4 temperature 15 30 30000`
 
 ---
 
@@ -59,7 +59,7 @@ GPIO4 <----->  DATA (желтый)
 **Ответ:** 
 ```bash
 # 1. Увеличить интервал чтения
-pin setup dht22 4 temp1 --interval 10000
+pin_setup temp1 DHT22 4 temperature 15 30 10000
 
 # 2. Проверить длину проводов (макс 30см)
 # 3. Добавить pull-up резистор 4.7kOm
@@ -89,7 +89,7 @@ memory free
 # В коде: ENABLE_MESH_STATISTICS = 0
 
 # 3. Увеличить интервалы чтения датчиков
-pin setup dht22 4 temp1 --interval 10000
+pin_setup temp1 DHT22 4 temperature 15 30 10000
 ```
 
 ### **❓ Правила автоматизации не срабатывают**
@@ -240,13 +240,13 @@ log show >> /diag_report.txt
 
 ### **❓ Сколько кода в проекте?**
 **Ответ:**
-- **Всего:** 27,000+ строк C++
+- **Всего:** 32,700+ строк C++
 - **CLI:** 6,324 строки (23%)
 - **Диагностика:** ~11,000 строк (40%)
 - **Mesh статистика:** 1,084 строки
 
 ### **❓ Сколько команд доступно?**
-**Ответ:** **131 CLI команда** в 10 категориях (system, network, pin, automation, monitoring и др.)
+**Ответ:** **98 CLI команд** в 10 категориях (system, network, pin, automation, monitoring и др.)
 
 ---
 
