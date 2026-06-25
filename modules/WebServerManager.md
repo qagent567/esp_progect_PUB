@@ -95,6 +95,36 @@
 * Это переносит создание JSON-объекта из уязвимой кучи (Heap) на быстрый стек (Stack) процессора.
 * За счет этого снижается амплитуда скачков фрагментации памяти во время частых опросов веб-интерфейсом состояния узла.
 
+
+### 2.7. Условная компиляция интерфейса (Флаг ENABLE_EMBEDDED_WEB_UI)
+
+Для адаптации под жесткие условия памяти (например, в крупных mesh-сетях с повышенной нагрузкой на ОЗУ) в модуль `WebServerManager` добавлена поддержка флага компиляции `ENABLE_EMBEDDED_WEB_UI`:
+
+```cpp
+#ifdef ENABLE_EMBEDDED_WEB_UI
+  // Регистрация роутов статических ресурсов (HTML, JS, CSS, Manifest, Service Worker)
+  _server->on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+      if (!_isActive) {
+          request->send_P(200, "text/html", standby_html);
+      } else {
+          AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", index_html_gz, index_html_gz_len);
+          response->addHeader("Content-Encoding", "gzip");
+          request->send(response);
+      }
+  });
+#else
+  // В режиме AppReady статические ресурсы исключаются для освобождения Flash и RAM
+  _server->on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+      request->send(200, "application/json", "{\"status\":\"AppReady\",\"api_only\":true,\"info\":\"Используйте внешнее Android-приложение\"}");
+  });
+#endif
+```
+
+При отключенном флаге:
+* Массивы `index_html_gz`, `sw_gz` и `manifest_gz` из `WebRes.h` полностью исключаются линкером из финальной сборки прошивки (экономия **~80 КБ** Flash).
+* Асинхронные сокеты не выделяют RAM под буферизацию статических страниц.
+* Все REST API эндпоинты (`/api/status`, `/api/pins`, `/api/rules`, `/api/cli`) и SSE-вещание остаются на 100% работоспособными и обслуживают внешнее Android-приложение.
+
 ## 3. Взаимодействие с ядром (Rest API)
 Модуль предоставляет следующие ключевые эндпоинты:
 *   `GET /api/status` — возвращает системную телеметрию (Uptime, RAM, Health, кол-во узлов).

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriSwarm Mobile Dashboard</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Мобильная панель управления децентрализованной mesh-сетью AgriSwarm для ESP32. Управление теплицей, датчиками, правилами автоматизации и CLI.">
+  <meta name="theme-color" content="#0a0f1d">
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Header / Navigation Bar -->
+  <header class="app-header">
+    <div class="logo-area">
+      <span class="logo-icon">🌾</span>
+      <h1 class="logo-title" id="appMainTitle">AgriSwarm <span class="logo-badge">Mobile</span></h1>
+    </div>
+    
+    <div class="connection-control">
+      <div id="connectionStatus" class="status-indicator status-offline">Demo Mode</div>
+      <input type="text" id="espIpInput" class="ip-input" placeholder="IP: 10.0.0.1" value="10.0.0.1">
+      <button id="connectBtn" class="connect-btn">Подключить</button>
+      <button id="themeToggleBtn" class="theme-toggle-btn" title="Переключить тему (Полевой режим)">☀️ Поле</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container">
+    
+    <!-- Left Navigation Tabs (Sidebar for tablets, bottom bar for mobile) -->
+    <nav class="app-tabs">
+      <button class="tab-btn active" data-tab="dashboard" id="tabBtnDashboard">
+        <span class="tab-icon">📊</span><span class="tab-text">Дашборд</span>
+      </button>
+      <button class="tab-btn" data-tab="pinout" id="tabBtnPinout">
+        <span class="tab-icon">🔌</span><span class="tab-text">Карта ESP32</span>
+      </button>
+      <button class="tab-btn" data-tab="mesh" id="tabBtnMesh">
+        <span class="tab-icon">🕸️</span><span class="tab-text">Swarm Mesh</span>
+      </button>
+      <button class="tab-btn" data-tab="rules" id="tabBtnRules">
+        <span class="tab-icon">📋</span><span class="tab-text">Правила</span>
+      </button>
+      <button class="tab-btn" data-tab="terminal" id="tabBtnTerminal">
+        <span class="tab-icon">🖥️</span><span class="tab-text">Терминал</span>
+      </button>
+    </nav>
+
+    <!-- Content Sections -->
+    <div class="app-content">
+      
+      <!-- 1. DASHBOARD -->
+      <section id="tab-dashboard" class="content-section active">
+        <div class="section-header">
+          <h2>Панель телеметрии и управления</h2>
+          <p class="section-desc">Мониторинг сенсоров и ручное переключение исполнительных устройств.</p>
+        </div>
+        
+        <!-- Live Sensors Grid -->
+        <div class="dashboard-grid">
+          
+          <!-- Sensor Card: Temperature -->
+          <div class="dashboard-card sensor-card" id="cardTemp">
+            <div class="card-header">
+              <span class="card-icon">🌡️</span>
+              <span class="card-label">Температура воздуха</span>
+            </div>
+            <div class="card-value"><span id="valTemp">24.5</span> <span class="unit">°C</span></div>
+            <div class="card-chart-container">
+              <canvas id="tempChart"></canvas>
+            </div>
+            <div class="card-footer">
+              <span class="sensor-details">Стабильно • DHT22 (Pin 4)</span>
+            </div>
+          </div>
+
+          <!-- Sensor Card: Soil Moisture -->
+          <div class="dashboard-card sensor-card" id="cardMoisture">
+            <div class="card-header">
+              <span class="card-icon">💧</span>
+              <span class="card-label">Влажность почвы</span>
+            </div>
+            <div class="card-value"><span id="valMoisture">42</span> <span class="unit">%</span></div>
+            <div class="card-chart-container">
+              <canvas id="moistureChart"></canvas>
+            </div>
+            <div class="card-footer">
+              <span class="sensor-details">Норма • Аналоговый (Pin 34)</span>
+            </div>
+          </div>
+
+          <!-- Sensor Card: Battery & Power -->
+          <div class="dashboard-card info-card" id="cardPower">
+            <div class="card-header">
+              <span class="card-icon">🔋</span>
+              <span class="card-label">Питание узла</span>
+            </div>
+            <div class="card-value"><span id="valBattery">88</span> <span class="unit">%</span></div>
+            <div class="battery-bar-outer">
+              <div class="battery-bar-inner" id="valBatteryBar" style="width: 88%;"></div>
+            </div>
+            <div class="card-details-list">
+              <div class="detail-row"><span>Напряжение:</span><strong id="valVoltage">3.92 В</strong></div>
+              <div class="detail-row"><span>Энергосбережение:</span><span class="badge badge-eco" id="valEcoMode">Eco Enabled</span></div>
+            </div>
+          </div>
+
+          <!-- Actuators Card: Relays & Valves -->
+          <div class="dashboard-card control-card" id="cardActuators">
+            <div class="card-header">
+              <span class="card-icon">⚙️</span>
+              <span class="card-label">Исполнительные механизмы</span>
+            </div>
+            <div class="control-list">
+              <!-- Actuator 1 -->
+              <div class="control-item">
+                <div class="control-info">
+                  <span class="control-name">🚿 Насос полива</span>
+                  <span class="control-pin">Реле • GPIO 12 • Priority: MAN</span>
+                </div>
+                <label class="switch-toggle">
+                  <input type="checkbox" id="relayWaterPump">
+                  <span class="slider-round"></span>
+                </label>
+              </div>
+              <!-- Actuator 2 -->
+              <div class="control-item">
+                <div class="control-info">
+                  <span class="control-name">💨 Вентиляция</span>
+                  <span class="control-pin">Реле • GPIO 14 • Priority: AUTO</span>
+                </div>
+                <label class="switch-toggle">
+                  <input type="checkbox" id="relayVentilation">
+                  <span class="slider-round"></span>
+                </label>
+              </div>
+              <!-- Actuator 3 -->
+              <div class="control-item">
+                <div class="control-info">
+                  <span class="control-name">💡 Освещение грядок</span>
+                  <span class="control-pin">Реле • GPIO 27 • Priority: RULE</span>
+                </div>
+                <label class="switch-toggle">
+                  <input type="checkbox" id="relayLighting">
+                  <span class="slider-round"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 2. PINOUT CONFIGURATOR -->
+      <section id="tab-pinout" class="content-section">
+        <div class="section-header">
+          <h2>Интерактивная карта пинов ESP32</h2>
+          <p class="section-desc">Кликните на свободный контакт платы, чтобы подключить новое устройство или изменить настройки.</p>
+        </div>
+
+        <div class="pinout-workspace">
+          <!-- ESP32 Vector Graphic Board -->
+          <div class="board-visualizer">
+            <svg id="esp32Svg" viewBox="0 0 400 600" width="100%" height="100%">
+              <!-- Board Body -->
+              <rect x="70" y="40" width="260" height="520" rx="15" fill="#1b4d22" stroke="#2e7d32" stroke-width="6"/>
+              <!-- ESP32 Chip -->
+              <rect x="110" y="70" width="180" height="150" rx="8" fill="#2d2d2d" stroke="#555" stroke-width="2"/>
+              <text x="200" y="145" font-family="'Outfit', sans-serif" font-weight="bold" font-size="20" fill="#fff" text-anchor="middle">ESP32-WROOM</text>
+              <rect x="135" y="80" width="130" height="30" rx="4" fill="#a0a0a0"/>
+              <!-- Wi-Fi Antenna -->
+              <path d="M 140 60 L 260 60 M 150 50 L 250 50 M 170 40 L 230 40" stroke="#ffd700" stroke-width="3" stroke-linecap="round"/>
+
+              <!-- Left Side Pins (GPIOs) -->
+              <!-- 3V3 -->
+              <rect id="pin_3V3" class="esp-pin power-pin" x="40" y="240" width="40" height="18" rx="3" fill="#d32f2f"/>
+              <text x="72" y="253" font-family="monospace" font-size="10" fill="#fff" text-anchor="end">3V3</text>
+              <!-- EN -->
+              <rect id="pin_EN" class="esp-pin system-pin" x="40" y="270" width="40" height="18" rx="3" fill="#757575"/>
+              <text x="72" y="283" font-family="monospace" font-size="10" fill="#fff" text-anchor="end">EN</text>
+              <!-- GPIO 34 (Analog sensor) -->
+              <rect id="pin_34" class="esp-pin analog-pin mapped-pin" x="40" y="300" width="40" height="18" rx="3" fill="#ff9800"/>
+              <text x="72" y="313" font-family="monospace" font-size="10" fill="#fff" text-anchor="end">G34</text>
+              <!-- GPIO 35 -->
+              <rect id="pin_35" class="esp-pin free-pin" x="40" y="330" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="72" y="343" font-family="monospace" font-size="10" fill="#111" text-anchor="end">G35</text>
+              <!-- GPIO 32 -->
+              <rect id="pin_32" class="esp-pin free-pin" x="40" y="360" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="72" y="373" font-family="monospace" font-size="10" fill="#111" text-anchor="end">G32</text>
+              <!-- GPIO 33 -->
+              <rect id="pin_33" class="esp-pin free-pin" x="40" y="390" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="72" y="403" font-family="monospace" font-size="10" fill="#111" text-anchor="end">G33</text>
+              <!-- GPIO 25 -->
+              <rect id="pin_25" class="esp-pin free-pin" x="40" y="420" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="72" y="433" font-family="monospace" font-size="10" fill="#111" text-anchor="end">G25</text>
+              <!-- GPIO 26 -->
+              <rect id="pin_26" class="esp-pin free-pin" x="40" y="450" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="72" y="463" font-family="monospace" font-size="10" fill="#111" text-anchor="end">G26</text>
+              <!-- GPIO 27 -->
+              <rect id="pin_27" class="esp-pin digital-pin mapped-pin" x="40" y="480" width="40" height="18" rx="3" fill="#2196f3"/>
+              <text x="72" y="493" font-family="monospace" font-size="10" fill="#fff" text-anchor="end">G27</text>
+              <!-- GND -->
+              <rect id="pin_GND1" class="esp-pin ground-pin" x="40" y="510" width="40" height="18" rx="3" fill="#212121"/>
+              <text x="72" y="523" font-family="monospace" font-size="10" fill="#fff" text-anchor="end">GND</text>
+
+              <!-- Right Side Pins (GPIOs) -->
+              <!-- GND -->
+              <rect id="pin_GND2" class="esp-pin ground-pin" x="320" y="240" width="40" height="18" rx="3" fill="#212121"/>
+              <text x="328" y="253" font-family="monospace" font-size="10" fill="#fff" text-anchor="start">GND</text>
+              <!-- GPIO 23 -->
+              <rect id="pin_23" class="esp-pin free-pin" x="320" y="270" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="328" y="283" font-family="monospace" font-size="10" fill="#111" text-anchor="start">G23</text>
+              <!-- GPIO 22 -->
+              <rect id="pin_22" class="esp-pin free-pin" x="320" y="300" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="328" y="313" font-family="monospace" font-size="10" fill="#111" text-anchor="start">G22</text>
+              <!-- GPIO 1 (TX) -->
+              <rect id="pin_1" class="esp-pin system-pin" x="320" y="330" width="40" height="18" rx="3" fill="#757575"/>
+              <text x="328" y="343" font-family="monospace" font-size="10" fill="#fff" text-anchor="start">TX0</text>
+              <!-- GPIO 3 (RX) -->
+              <rect id="pin_3" class="esp-pin system-pin" x="320" y="360" width="40" height="18" rx="3" fill="#757575"/>
+              <text x="328" y="373" font-family="monospace" font-size="10" fill="#fff" text-anchor="start">RX0</text>
+              <!-- GPIO 21 -->
+              <rect id="pin_21" class="esp-pin free-pin" x="320" y="390" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="328" y="403" font-family="monospace" font-size="10" fill="#111" text-anchor="start">G21</text>
+              <!-- GPIO 19 -->
+              <rect id="pin_19" class="esp-pin free-pin" x="320" y="420" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="328" y="433" font-family="monospace" font-size="10" fill="#111" text-anchor="start">G19</text>
+              <!-- GPIO 18 -->
+              <rect id="pin_18" class="esp-pin free-pin" x="320" y="450" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="328" y="463" font-family="monospace" font-size="10" fill="#111" text-anchor="start">G18</text>
+              <!-- GPIO 5 -->
+              <rect id="pin_5" class="esp-pin free-pin" x="320" y="480" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="328" y="493" font-family="monospace" font-size="10" fill="#111" text-anchor="start">G5</text>
+              <!-- GPIO 17 -->
+              <rect id="pin_17" class="esp-pin free-pin" x="320" y="510" width="40" height="18" rx="3" fill="#ffd700"/>
+              <text x="328" y="523" font-family="monospace" font-size="10" fill="#111" text-anchor="start">G17</text>
+            </svg>
+          </div>
+
+          <!-- Pin Config Panel (Appears on click) -->
+          <div class="pin-config-form" id="pinConfigForm">
+            <h3 id="configPinName">Выберите пин для настройки</h3>
+            <p class="config-pin-hint">Выберите физический контакт на схеме слева.</p>
+            
+            <div id="pinConfigInputs" style="display:none;">
+              <div class="form-group">
+                <label for="pinDeviceType">Тип подключаемого устройства:</label>
+                <select id="pinDeviceType">
+                  <option value="none">Отключено (Свободен)</option>
+                  <option value="sensor_temp">🌡️ Датчик температуры (DHT22)</option>
+                  <option value="sensor_moisture">💧 Датчик влажности (Аналоговый)</option>
+                  <option value="relay">🚿 Насос/Реле (Выход)</option>
+                  <option value="vent">💨 Вентиляция/Реле (Выход)</option>
+                </select>
+              </div>
+
+              <div class="form-group" id="sensorSettingsGrp" style="display:none;">
+                <label for="sensorPollInterval">Интервал опроса (сек):</label>
+                <input type="number" id="sensorPollInterval" value="10" min="1">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="pinUsePowerPin"> Использовать Power Pin (транзисторный ключ)
+                </label>
+                <div id="powerPinSubGrp" style="display:none;">
+                  <label for="powerPinSelect">GPIO питания:</label>
+                  <select id="powerPinSelect">
+                    <option value="32">GPIO 32</option>
+                    <option value="33">GPIO 33</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" id="relaySettingsGrp" style="display:none;">
+                <label for="relayPriority">Приоритет по умолчанию:</label>
+                <select id="relayPriority">
+                  <option value="MANUAL">MANUAL (Ручной)</option>
+                  <option value="RULE">RULE (Автоматический по правилу)</option>
+                  <option value="SAFETY">SAFETY (Защитный)</option>
+                </select>
+              </div>
+
+              <button id="savePinConfigBtn" class="save-btn">Сохранить конфигурацию</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SWARM MESH TOPOLOGY -->
+      <section id="tab-mesh" class="content-section">
+        <div class="section-header">
+          <h2>Карта Swarm Mesh (Топология роя)</h2>
+          <p class="section-desc">Визуализация распределенного кластера устройств, их ролей и качества связи.</p>
+        </div>
+
+        <div class="mesh-workspace">
+          <!-- Topology Canvas Map -->
+          <div class="mesh-visualizer">
+            <canvas id="meshCanvas" width="500" height="400"></canvas>
+          </div>
+
+          <!-- Mesh Nodes List -->
+          <div class="mesh-nodes-panel">
+            <h3>Активные узлы роя (<span id="nodesCount">4</span>)</h3>
+            <div class="nodes-list" id="nodesList">
+              <!-- Simulated nodes generated by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. RULES MANAGER (AUTOMATION) -->
+      <section id="tab-rules" class="content-section">
+        <div class="section-header">
+          <h2>Умные Правила Автоматизации</h2>
+          <p class="section-desc">Настройка логики автоматического принятия решений прямо на устройстве (Local RuleEngine).</p>
+        </div>
+
+        <div class="rules-workspace">
+          <!-- New Rule Creator -->
+          <div class="rules-builder-card">
+            <h3>🆕 Создать правило</h3>
+            <div class="rule-builder-form">
+              
+              <div class="rule-row">
+                <span class="rule-keyword">ЕСЛИ</span>
+                <select id="ruleTriggerSensor" class="rule-select">
+                  <option value="temp">🌡️ Температура воздуха</option>
+                  <option value="moisture">💧 Влажность почвы</option>
+                </select>
+                <select id="ruleCondition" class="rule-select">
+                  <option value="lt">меньше (&lt;)</option>
+                  <option value="gt">больше (&gt;)</option>
+                </select>
+                <input type="number" id="ruleValue" class="rule-input" value="30">
+              </div>
+
+              <div class="rule-row">
+                <span class="rule-keyword">ТО</span>
+                <select id="ruleActionTarget" class="rule-select">
+                  <option value="pump">🚿 Включить Насос полива</option>
+                  <option value="vent">💨 Включить Вентиляцию</option>
+                  <option value="light">💡 Включить Освещение</option>
+                </select>
+                <span class="rule-keyword">НА</span>
+                <input type="number" id="ruleDuration" class="rule-input" value="60">
+                <span class="rule-keyword">сек</span>
+              </div>
+
+              <div class="rule-row">
+                <span class="rule-keyword">КУЛДАУН</span>
+                <input type="number" id="ruleCooldown" class="rule-input" value="300">
+                <span class="rule-keyword">сек (защита от частого клика)</span>
+              </div>
+
+              <button id="addRuleBtn" class="add-rule-btn">Добавить правило в память ESP32</button>
+            </div>
+          </div>
+
+          <!-- Existing Rules List -->
+          <div class="rules-list-card">
+            <h3>📋 Текущие правила в энергонезависимой памяти (NVS)</h3>
+            <div class="rules-container" id="rulesContainer">
+              <!-- Rules inject dynamically here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. CLI TERMINAL -->
+      <section id="tab-terminal" class="content-section">
+        <div class="section-header">
+          <h2>Интерактивный терминал CLI (Over-the-Air)</h2>
+          <p class="section-desc">Прямой доступ к ядру устройства. Поддерживает Tab для автодополнения и историю ввода.</p>
+        </div>
+
+        <div class="terminal-workspace">
+          <!-- Terminal Console Box -->
+          <div class="terminal-box">
+            <div class="terminal-output" id="terminalOutput">
+              <div class="terminal-line system-msg">Добро пожаловать в консоль разработчика AgriSwarm.</div>
+              <div class="terminal-line system-msg">Версия ядра: v4.0.5-AppReady.</div>
+              <div class="terminal-line system-msg">Введите 'help' для просмотра доступных команд.</div>
+            </div>
+            
+            <div class="terminal-input-row">
+              <span class="terminal-prompt">AgriSwarm ></span>
+              <input type="text" id="terminalInput" class="terminal-input" placeholder="Введите команду..." autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Quick Actions Chips -->
+          <div class="terminal-chips">
+            <button class="chip-btn" data-cmd="status">🔍 status</button>
+            <button class="chip-btn" data-cmd="node_list">🕸️ node_list</button>
+            <button class="chip-btn" data-cmd="topics_tree">🌳 topics_tree</button>
+            <button class="chip-btn" data-cmd="blackbox rtc">⬛ blackbox rtc</button>
+            <button class="chip-btn" data-cmd="help">❓ help</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="app-footer-bar">
+    <p>AgriSwarm v4.0.5-AppReady • Разработано для стабильной автоматизации</p>
+  </footer>
+
+  <!-- JS Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

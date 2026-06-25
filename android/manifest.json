@@ -1,0 +1,22 @@
+{
+  "name": "AgriSwarm Mesh Monitor",
+  "short_name": "AgriSwarm",
+  "description": "Мобильный интерфейс управления децентрализованной mesh-сетью AgriSwarm на базе ESP32",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#060913",
+  "theme_color": "#0a0f1d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

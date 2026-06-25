@@ -1,0 +1,1055 @@
+/* ==========================================================================
+   AgriSwarm CSS Design System - Glassmorphism & High Contrast Field Mode
+   ========================================================================== */
+
+/* Variables & Theme Tokens */
+:root {
+  /* Dark Glassmorphism Theme (Default) */
+  --bg-color: #060913;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #0f1c3f 0%, #060913 70%);
+  --card-bg: rgba(18, 30, 58, 0.5);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent-color: #4f46e5;
+  --accent-hover: #6366f1;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --glass-blur: blur(12px);
+  --font-family: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --header-bg: rgba(10, 18, 40, 0.7);
+  --nav-bg: rgba(8, 14, 30, 0.8);
+  --badge-bg: rgba(79, 70, 229, 0.2);
+  --input-bg: rgba(15, 23, 42, 0.6);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --indicator-online: #10b981;
+  --indicator-offline: #64748b;
+  --pin-free: #ffd700;
+  --pin-mapped-sensor: #ff9800;
+  --pin-mapped-relay: #2196f3;
+  --terminal-bg: #030712;
+}
+
+/* Light Theme - High Contrast Field Mode (☀️) */
+body.light-theme {
+  --bg-color: #f8fafc;
+  --bg-gradient: linear-gradient(180deg, #e2e8f0 0%, #f8fafc 100%);
+  --card-bg: #ffffff;
+  --card-border: #cbd5e1;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --accent-color: #2563eb;
+  --accent-hover: #1d4ed8;
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --danger-color: #dc2626;
+  --glass-blur: none;
+  --header-bg: #e2e8f0;
+  --nav-bg: #0f172a;
+  --badge-bg: rgba(37, 99, 235, 0.15);
+  --input-bg: #ffffff;
+  --input-border: #94a3b8;
+  --indicator-online: #059669;
+  --indicator-offline: #475569;
+  --pin-free: #eab308;
+  --pin-mapped-sensor: #f97316;
+  --pin-mapped-relay: #3b82f6;
+  --terminal-bg: #0f172a;
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-color);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 1. Header Styles */
+.app-header {
+  background: var(--header-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--card-border);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  font-size: 2rem;
+}
+
+.logo-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-badge {
+  font-size: 0.75rem;
+  background: var(--badge-bg);
+  color: var(--accent-hover);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.connection-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.status-indicator {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.status-indicator::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-online {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success-color);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-online::before {
+  background: var(--indicator-online);
+  box-shadow: 0 0 8px var(--indicator-online);
+}
+
+.status-offline {
+  background: rgba(100, 116, 139, 0.15);
+  color: var(--text-muted);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.status-offline::before {
+  background: var(--indicator-offline);
+}
+
+.ip-input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-main);
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  width: 120px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ip-input:focus {
+  border-color: var(--accent-hover);
+}
+
+.connect-btn, .theme-toggle-btn, .save-btn, .add-rule-btn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.45rem 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.connect-btn:hover, .save-btn:hover, .add-rule-btn:hover {
+  background: var(--accent-hover);
+}
+
+.connect-btn:active, .theme-toggle-btn:active {
+  transform: scale(0.97);
+}
+
+.theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+}
+
+body.light-theme .theme-toggle-btn {
+  background: #0f172a;
+  color: #fff;
+  border: none;
+}
+
+/* 2. Layout Structure */
+.app-container {
+  flex: 1;
+  display: flex;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+/* 3. Navigation Tabs */
+.app-tabs {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--nav-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  padding: 1rem;
+  border-radius: 12px;
+  height: fit-content;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+}
+
+.tab-btn.active {
+  background: var(--accent-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+}
+
+/* 4. Content Area */
+.app-content {
+  flex: 1;
+  min-width: 0; /* Prevents flexbox items from breaking layout overflow */
+}
+
+.content-section {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.content-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.section-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+
+/* 5. Dashboard Grid & Cards */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.dashboard-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+body.light-theme .dashboard-card:hover {
+  border-color: var(--accent-hover);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-icon {
+  font-size: 1.25rem;
+}
+
+.card-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-value {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.card-value .unit {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.card-chart-container {
+  height: 80px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.card-footer {
+  border-top: 1px solid var(--card-border);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.sensor-details {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Battery Specifics */
+.battery-bar-outer {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 1px solid var(--card-border);
+}
+
+.battery-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--danger-color) 0%, var(--warning-color) 50%, var(--success-color) 100%);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.card-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.detail-row strong, .detail-row span.badge {
+  color: var(--text-main);
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.badge-eco {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success-color) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Control List (Relays) */
+.control-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.control-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.control-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.control-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.control-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.control-pin {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Switch Toggle Slider */
+.switch-toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-round {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--card-border);
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.slider-round:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.switch-toggle input:checked + .slider-round {
+  background-color: var(--success-color);
+}
+
+.switch-toggle input:focus + .slider-round {
+  box-shadow: 0 0 1px var(--success-color);
+}
+
+.switch-toggle input:checked + .slider-round:before {
+  transform: translateX(24px);
+}
+
+/* 6. Pinout Configurator Workspace */
+.pinout-workspace {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.board-visualizer {
+  flex: 1.2;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-height: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--card-shadow);
+}
+
+.board-visualizer svg {
+  max-height: 500px;
+}
+
+.esp-pin {
+  cursor: pointer;
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 0.5px;
+  transition: filter 0.2s, stroke 0.2s;
+}
+
+.esp-pin:hover {
+  filter: brightness(1.2) drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+/* Active Pin Highlight */
+.esp-pin.active-pin {
+  stroke: #ff3b30 !important;
+  stroke-width: 2px !important;
+  filter: brightness(1.3) drop-shadow(0 0 6px #ff3b30);
+}
+
+.pin-config-form {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  min-height: 250px;
+}
+
+.pin-config-form h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.config-pin-hint {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.form-group select, .form-group input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-main);
+  padding: 0.55rem;
+  border-radius: 6px;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  color: var(--text-main);
+}
+
+.checkbox-label input {
+  width: auto;
+}
+
+.save-btn {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.65rem;
+}
+
+/* 7. Swarm Mesh Workspace */
+.mesh-workspace {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.mesh-visualizer {
+  flex: 1.5;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.mesh-visualizer canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.mesh-nodes-panel {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mesh-nodes-panel h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 0.5rem;
+}
+
+.nodes-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.node-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.node-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.node-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.node-role-badge {
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.role-gateway {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--success-color);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.role-node {
+  background: rgba(79, 70, 229, 0.2);
+  color: var(--accent-hover);
+  border: 1px solid rgba(79, 70, 229, 0.3);
+}
+
+.node-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* 8. Rules Builder Workspace */
+.rules-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rules-builder-card, .rules-list-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+}
+
+.rules-builder-card h3, .rules-list-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.rule-builder-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rule-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.rule-keyword {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.rule-select, .rule-input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-main);
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+}
+
+.rule-input {
+  width: 70px;
+  text-align: center;
+  font-family: var(--font-mono);
+}
+
+.add-rule-btn {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.2rem;
+}
+
+.rules-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rule-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.rule-item:hover {
+  transform: translateX(4px);
+}
+
+.rule-body {
+  font-size: 0.95rem;
+}
+
+.rule-highlight {
+  color: var(--accent-hover);
+  font-weight: 600;
+}
+
+.rule-val-hl {
+  color: var(--warning-color);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.rule-delete-btn {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger-color);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.rule-delete-btn:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+/* 9. Terminal Workspace */
+.terminal-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.terminal-box {
+  background: var(--terminal-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  height: 350px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 0.5rem;
+}
+
+.terminal-line {
+  word-break: break-all;
+}
+
+.terminal-line.user-cmd {
+  color: #38bdf8;
+  font-weight: 500;
+}
+
+.terminal-line.user-cmd::before {
+  content: "AgriSwarm > ";
+  color: #0284c7;
+}
+
+.terminal-line.system-msg {
+  color: #9ca3af;
+}
+
+.terminal-line.success-msg {
+  color: var(--success-color);
+}
+
+.terminal-line.error-msg {
+  color: var(--danger-color);
+}
+
+.terminal-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 0.5rem;
+}
+
+.terminal-prompt {
+  font-family: var(--font-mono);
+  color: var(--accent-hover);
+  font-weight: bold;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.terminal-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.chip-btn:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-hover);
+  color: #fff;
+}
+
+/* 10. Footer */
+.app-footer-bar {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--card-border);
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+/* Tables and Laptops */
+@media (max-width: 1024px) {
+  .app-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .app-tabs {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    overflow-x: auto;
+    padding: 0.5rem;
+  }
+  .tab-btn {
+    justify-content: center;
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  .tab-text {
+    display: none; /* Hide tab text on smaller screens to save space */
+  }
+  .tab-btn .tab-icon {
+    font-size: 1.25rem;
+  }
+  .pinout-workspace, .mesh-workspace {
+    flex-direction: column;
+  }
+  .board-visualizer, .pin-config-form, .mesh-visualizer, .mesh-nodes-panel {
+    width: 100%;
+    flex: none;
+  }
+  .mesh-visualizer, .mesh-nodes-panel {
+    height: 350px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 600px) {
+  .app-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    align-items: stretch;
+  }
+  .logo-area {
+    justify-content: center;
+  }
+  .connection-control {
+    justify-content: space-between;
+  }
+  .ip-input {
+    width: 100px;
+  }
+  .app-tabs {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-radius: 0;
+    border-top: 1px solid var(--card-border);
+    border-left: none; border-right: none; border-bottom: none;
+    margin: 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  }
+  body {
+    padding-bottom: 70px; /* Leave space for bottom bar */
+  }
+  .app-footer-bar {
+    display: none; /* Hide footer on mobile */
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .rule-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+  }
+  .rule-select, .rule-input {
+    width: 100%;
+  }
+}
