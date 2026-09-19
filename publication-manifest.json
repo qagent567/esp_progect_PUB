@@ -39,8 +39,14 @@
     "archive/README.md",
     "assets/agriswarm-public-cover.svg",
     "assets/agriswarm-public-system.svg",
+    "assets/agriswarm-use-cases.svg",
+    "assets/badge-esp32.svg",
+    "assets/badge-license.svg",
+    "assets/badge-local.svg",
+    "assets/badge-stage.svg",
     "docs/README.md",
     "docs/advanced-settings.md",
+    "docs/assets/agriswarm_logo.png",
     "docs/automation.md",
     "docs/cli-dictionary.md",
     "docs/command-examples.md",
@@ -57,7 +63,9 @@
     "docs/led-diagnostics.md",
     "docs/littlefs-structure.md",
     "docs/network-packets.md",
+    "docs/presentation-kit.md",
     "docs/project-overview.md",
+    "docs/project-roadmap.md",
     "docs/project-status.md",
     "docs/real-capabilities.md",
     "docs/reference.md",
@@ -122,5 +130,6 @@
     "modules/WebServerManager.md",
     "publication-manifest.json",
     "tools/check_docs.py"
-  ]
+  ],
+  "presentation": "Витрина проекта: фирменный логотип, схемы, обзор и материалы для презентации."
 }

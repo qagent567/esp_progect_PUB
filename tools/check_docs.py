@@ -5,6 +5,29 @@ import json
 import re
 import sys
 import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
+
+
+class PageHTML(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.targets = []
+        self.headings = 0
+        self.anchors = set()
+        self.missing_alt = False
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        self.headings += tag == 'h1'
+        if attrs.get('id'):
+            self.anchors.add(attrs['id'])
+        if tag == 'a' and attrs.get('href'):
+            self.targets.append(attrs['href'])
+        if tag == 'img':
+            if attrs.get('src'):
+                self.targets.append(attrs['src'])
+            if not attrs.get('alt', '').strip():
+                self.missing_alt = True
 
 
 def check(root):
@@ -26,8 +49,10 @@ def check(root):
         if not file.is_file() or file.is_symlink() or root not in file.resolve().parents:
             errors.append(f'{name}: файл отсутствует или выходит за границы комплекта.')
             continue
-        if file.suffix not in {'.md', '.svg', '.json', '.py'} and name not in {'LICENSE', '.gitignore', '.gitattributes'}:
+        if file.suffix not in {'.md', '.svg', '.png', '.json', '.py'} and name not in {'LICENSE', '.gitignore', '.gitattributes'}:
             errors.append(f'{name}: неподдерживаемый тип файла документации.')
+        if file.suffix == '.png' and file.read_bytes()[:8] != b'\x89PNG\r\n\x1a\n':
+            errors.append(f'{name}: неверный заголовок PNG.')
         if file.suffix == '.svg':
             try:
                 tree = ET.fromstring(file.read_text(encoding='utf-8'))
@@ -43,9 +68,14 @@ def check(root):
         content = file.read_text(encoding='utf-8')
         if '\ufffd' in content:
             errors.append(f'{name}: повреждённая кодировка.')
-        headings = re.findall(r'^# ', content, re.MULTILINE)
-        if len(headings) != 1 and not name.startswith('.github/'):
+        prose = re.sub(r'^```[^\n]*\n.*?^```\s*$', '', content, flags=re.MULTILINE | re.DOTALL)
+        markup = PageHTML()
+        markup.feed(prose)
+        headings = re.findall(r'^# ', prose, re.MULTILINE)
+        if len(headings) + markup.headings != 1 and not name.startswith('.github/'):
             errors.append(f'{name}: ожидается один основной заголовок.')
+        if markup.missing_alt:
+            errors.append(f'{name}: HTML-изображение без описания.')
         fences = re.findall(r'^```[^\n]*', content, re.MULTILINE)
         if len(fences) % 2:
             errors.append(f'{name}: незакрытый блок примера.')
@@ -55,9 +85,10 @@ def check(root):
             errors.append(f'{name}: листинг реализации не входит в публичную документацию.')
         if re.search(r'волшеб|\bмагия\b|100%|zero-allocation', content, re.IGNORECASE):
             errors.append(f'{name}: проверьте стиль или абсолютное обещание.')
-        prose = re.sub(r'^```[^\n]*\n.*?^```\s*$', '', content, flags=re.MULTILINE | re.DOTALL)
-        for match in re.finditer(r'!?\[[^\]\n]*\]\(([^)\n]+)\)', prose):
-            target = match.group(1).strip().strip('<>')
+        targets = [match.group(1) for match in re.finditer(r'!?\[[^\]\n]*\]\(([^)\n]+)\)', prose)]
+        targets.extend(markup.targets)
+        for raw_target in targets:
+            target = raw_target.strip().strip('<>')
             url = urlsplit(target)
             if url.scheme or url.netloc:
                 continue
@@ -76,6 +107,9 @@ def check(root):
                 ids = []
                 for heading in re.findall(r'^#{1,6}\s+(.+)$', target_text, re.MULTILINE):
                     ids.append(re.sub(r'[^\w\- ]', '', heading.lower()).replace(' ', '-'))
+                target_markup = PageHTML()
+                target_markup.feed(target_text)
+                ids.extend(target_markup.anchors)
                 if anchor not in ids:
                     errors.append(f'{name}: неизвестный якорь: {target}')
     return errors, {'files': len(entries), 'markdown_pages': pages, 'local_links': links}

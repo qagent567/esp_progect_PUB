@@ -1,17 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="510" viewBox="0 0 1400 510" role="img" aria-labelledby="title desc">
-<title id="title">Как работает AgriSwarm</title><desc id="desc">Датчик передаёт значение в правило на ESP32, правило задаёт действие выходному устройству. Другая ESP32 может участвовать через радиосвязь. Браузер и консоль используются для настройки и наблюдения.</desc>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10Z" fill="#477357"/></marker></defs>
-<rect width="1400" height="510" rx="20" fill="#f2f4ed"/>
-<g font-family="Segoe UI,Arial,sans-serif">
-<text x="48" y="52" fill="#617262" font-size="17" letter-spacing="2">ОТ ПОКАЗАНИЯ К ДЕЙСТВИЮ</text>
-<rect x="48" y="96" width="310" height="139" rx="16" fill="#fff" stroke="#d5dece"/><text x="75" y="140" fill="#27613d" font-size="18">01 / ИЗМЕРИТЬ</text><text x="75" y="180" fill="#182c21" font-size="28" font-weight="600">Датчик или кнопка</text><text x="75" y="213" fill="#546553" font-size="20">Новое показание</text>
-<rect x="543" y="96" width="314" height="139" rx="16" fill="#203f31"/><text x="570" y="140" fill="#b5d89b" font-size="18">02 / ПРОВЕРИТЬ</text><text x="570" y="180" fill="#f4f6eb" font-size="28" font-weight="600">Правило на ESP32</text><text x="570" y="213" fill="#c5d5c0" font-size="20">Условие и нужное действие</text>
-<rect x="1042" y="96" width="310" height="139" rx="16" fill="#fff" stroke="#d5dece"/><text x="1069" y="140" fill="#27613d" font-size="18">03 / ВЫПОЛНИТЬ</text><text x="1069" y="180" fill="#182c21" font-size="28" font-weight="600">Выход или привод</text><text x="1069" y="213" fill="#546553" font-size="20">Управляющий сигнал</text>
-<path d="M372 165H524" fill="none" stroke="#477357" stroke-width="3" marker-end="url(#arrow)"/>
-<path d="M872 165H1024" fill="none" stroke="#477357" stroke-width="3" marker-end="url(#arrow)"/>
-<rect x="48" y="342" width="510" height="96" rx="16" fill="#e3eadb"/><text x="75" y="381" fill="#243d2b" font-size="25">Браузер или USB-консоль</text><text x="75" y="416" fill="#546553" font-size="20">Настройка и наблюдение</text>
-<rect x="842" y="342" width="510" height="96" rx="16" fill="#e3eadb"/><text x="869" y="381" fill="#243d2b" font-size="25">Другая ESP32</text><text x="869" y="416" fill="#546553" font-size="20">Показания и команды по радиосвязи</text>
-<path d="M304 328V289H612V248" fill="none" stroke="#7c987c" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
-<path d="M1097 328V289H786V248" fill="none" stroke="#7c987c" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
-<text x="48" y="481" fill="#63725f" font-size="18">Схема принципа работы. Состав и доступность функций зависят от комплекта прошивки.</text>
-</g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title">
+<title id="title">Датчик измеряет, плата ESP32 проверяет правило, выход управляет устройством. Другие платы связаны по радио.</title>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071925"/><stop offset="1" stop-color="#082a2b"/></linearGradient>
+ <linearGradient id="accent"><stop stop-color="#b5ed7b"/><stop offset="1" stop-color="#4bd5ca"/></linearGradient>
+ <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#32565b" stroke-width="0.5" opacity=".35"/></pattern>
+</defs>
+<rect width="1200" height="440" rx="22" fill="url(#bg)"/>
+<rect width="1200" height="440" rx="22" fill="url(#grid)"/>
+<g font-family="Segoe UI,Arial,sans-serif" fill="#eef8f6"><text x="44" y="52" font-size="20" fill="#a9d1cb" font-weight="600" >AGRISWARM  /  ПРИНЦИП РАБОТЫ</text><text x="44" y="108" font-size="40" fill="#eef8f6" font-weight="600" >От измерения к действию</text><rect x="44" y="152" width="324" height="162" rx="16" fill="#0c2833" stroke="#285058"/><text x="66" y="194" font-size="22" fill="#a6ed8a" font-weight="600" >01</text><text x="66" y="243" font-size="34" fill="#eef8f6" font-weight="600" >Датчик</text><text x="66" y="282" font-size="22" fill="#b8d1d4" font-weight="400" >Измеряет условия</text><rect x="438" y="152" width="324" height="162" rx="16" fill="#0c2833" stroke="#285058"/><text x="460" y="194" font-size="22" fill="#a6ed8a" font-weight="600" >02</text><text x="460" y="243" font-size="34" fill="#eef8f6" font-weight="600" >ESP32</text><text x="460" y="282" font-size="22" fill="#b8d1d4" font-weight="400" >Проверяет правило</text><rect x="832" y="152" width="324" height="162" rx="16" fill="#0c2833" stroke="#285058"/><text x="854" y="194" font-size="22" fill="#a6ed8a" font-weight="600" >03</text><text x="854" y="243" font-size="34" fill="#eef8f6" font-weight="600" >Выход</text><text x="854" y="282" font-size="22" fill="#b8d1d4" font-weight="400" >Управляет устройством</text><path d="M383 232h37m-10-9 10 9-10 9" fill="none" stroke="url(#accent)" stroke-width="3"/><path d="M777 232h37m-10-9 10 9-10 9" fill="none" stroke="url(#accent)" stroke-width="3"/><path d="M600 316v32h190" fill="none" stroke="#59c5bf" stroke-width="2" stroke-dasharray="6 6"/><text x="44" y="397" font-size="23" fill="#c0ded8" font-weight="400" >Локальное правило выполняется на плате.</text><text x="806" y="356" font-size="26" fill="#acf08c" font-weight="600" >Другие ESP32</text><text x="806" y="395" font-size="22" fill="#b8d1d4" font-weight="400" >Обмен по радиосвязи</text></g>
+</svg>

@@ -9,6 +9,8 @@
 - [Сценарии применения](use-cases.md)
 - [План демонстрации](demonstration.md)
 - [Готовность проекта](project-status.md)
+- [Карта развития](project-roadmap.md)
+- [Материалы для NotebookLM и презентации](presentation-kit.md)
 - [Частые вопросы](../FAQ.md)
 
 ## Начать работу
