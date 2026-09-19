@@ -420,8 +420,8 @@ function initPinoutVisualizer() {
 }
 
 function selectPin(pinId) {
-  // Проверяем, можно ли настраивать пин (не GND и не 3V3)
-  if (pinId.includes("GND") || pinId.includes("3V3") || pinId === "pin_EN") {
+  // Проверяем, можно ли настраивать пин (не GND, не 3V3, не EN, не VIN, не RX/TX)
+  if (pinId.includes("GND") || pinId.includes("3V3") || pinId === "pin_EN" || pinId === "pin_VIN" || pinId === "pin_1" || pinId === "pin_3") {
     document.getElementById("configPinName").textContent = `Пин ${pinId.replace("pin_", "")} (Зарезервирован)`;
     document.getElementById("pinConfigInputs").style.display = "none";
     return;

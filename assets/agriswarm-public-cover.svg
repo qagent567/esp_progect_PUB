@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="500" viewBox="0 0 1440 500" role="img" aria-labelledby="title desc">
+<title id="title">AgriSwarm — локальная автоматика на ESP32</title>
+<desc id="desc">Схематическое изображение сети узлов рядом с названием проекта. Датчики, правила и действия работают вместе. Иллюстрация не является фотографией оборудования.</desc>
+<defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#234e45" stroke-width="1"/></pattern><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#112f2a"/><stop offset="1" stop-color="#081d1b"/></linearGradient></defs>
+<rect width="1440" height="500" rx="22" fill="url(#bg)"/>
+<rect x="770" width="670" height="500" rx="22" fill="url(#grid)" opacity=".6"/>
+<g font-family="Segoe UI,Arial,sans-serif">
+<rect x="64" y="54" width="282" height="36" rx="18" fill="#234c3e"/>
+<text x="84" y="78" fill="#b2e4b8" font-size="16" letter-spacing="2">ДОКУМЕНТАЦИЯ ПРОЕКТА</text>
+<text x="60" y="194" fill="#f5f4e9" font-size="88" font-weight="700" letter-spacing="-3">AgriSwarm</text>
+<text x="65" y="256" fill="#e3eddf" font-size="33">Локальная автоматика на ESP32</text>
+<text x="65" y="308" fill="#acc6ba" font-size="23">Датчики. Правила. Согласованные действия.</text>
+<path d="M65 358H685" stroke="#365a4e"/>
+<text x="65" y="406" fill="#c2d8c8" font-size="21">Одна плата или несколько связанных узлов</text>
+<text x="65" y="443" fill="#9fbdad" font-size="20">Локальные сценарии без обязательного интернета</text>
+</g>
+<g fill="none" stroke="#669775" stroke-width="3"><path d="M887 168L1097 270 1290 145M1097 270L1280 392M887 168L903 383 1097 270"/><circle cx="1097" cy="270" r="81" stroke="#456b56" stroke-dasharray="5 9"/></g>
+<g font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">
+<rect x="1010" y="222" width="174" height="96" rx="18" fill="#d3e9a0"/><text x="1097" y="263" fill="#173424" font-size="25" font-weight="700">ESP32</text><text x="1097" y="293" fill="#3a5438" font-size="19">правила</text>
+<circle cx="887" cy="168" r="46" fill="#204b3e" stroke="#94bb86" stroke-width="2"/><path d="M875 150V179A14 14 0 1 0 899 179V150A12 12 0 0 0 875 150Z" fill="none" stroke="#c2dfa0" stroke-width="3"/><path d="M887 162V186" stroke="#c2dfa0" stroke-width="5" stroke-linecap="round"/><text x="887" y="242" fill="#d5e4d8" font-size="20">Измерение</text>
+<circle cx="1290" cy="145" r="46" fill="#204b3e" stroke="#94bb86" stroke-width="2"/><path d="M1268 145H1290V123M1290 145L1310 166" fill="none" stroke="#c2dfa0" stroke-width="4"/><circle cx="1290" cy="145" r="7" fill="#c2dfa0"/><text x="1290" y="218" fill="#d5e4d8" font-size="20">Действие</text>
+<rect x="852" y="350" width="102" height="66" rx="14" fill="#204b3e" stroke="#94bb86" stroke-width="2"/><text x="903" y="390" fill="#d5e4d8" font-size="21">Узел</text>
+<rect x="1229" y="359" width="102" height="66" rx="14" fill="#204b3e" stroke="#94bb86" stroke-width="2"/><text x="1280" y="399" fill="#d5e4d8" font-size="21">Узел</text>
+</g></svg>

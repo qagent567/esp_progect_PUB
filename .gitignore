@@ -1,0 +1,14 @@
+# Generated or private local material
+*.bin
+*.elf
+*.map
+*.exe
+*.apk
+*.bak
+*.zip
+*.log
+.env
+.env.*
+__pycache__/
+.pio/
+node_modules/

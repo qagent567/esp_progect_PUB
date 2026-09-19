@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="510" viewBox="0 0 1400 510" role="img" aria-labelledby="title desc">
+<title id="title">Как работает AgriSwarm</title><desc id="desc">Датчик передаёт значение в правило на ESP32, правило задаёт действие выходному устройству. Другая ESP32 может участвовать через радиосвязь. Браузер и консоль используются для настройки и наблюдения.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10Z" fill="#477357"/></marker></defs>
+<rect width="1400" height="510" rx="20" fill="#f2f4ed"/>
+<g font-family="Segoe UI,Arial,sans-serif">
+<text x="48" y="52" fill="#617262" font-size="17" letter-spacing="2">ОТ ПОКАЗАНИЯ К ДЕЙСТВИЮ</text>
+<rect x="48" y="96" width="310" height="139" rx="16" fill="#fff" stroke="#d5dece"/><text x="75" y="140" fill="#27613d" font-size="18">01 / ИЗМЕРИТЬ</text><text x="75" y="180" fill="#182c21" font-size="28" font-weight="600">Датчик или кнопка</text><text x="75" y="213" fill="#546553" font-size="20">Новое показание</text>
+<rect x="543" y="96" width="314" height="139" rx="16" fill="#203f31"/><text x="570" y="140" fill="#b5d89b" font-size="18">02 / ПРОВЕРИТЬ</text><text x="570" y="180" fill="#f4f6eb" font-size="28" font-weight="600">Правило на ESP32</text><text x="570" y="213" fill="#c5d5c0" font-size="20">Условие и нужное действие</text>
+<rect x="1042" y="96" width="310" height="139" rx="16" fill="#fff" stroke="#d5dece"/><text x="1069" y="140" fill="#27613d" font-size="18">03 / ВЫПОЛНИТЬ</text><text x="1069" y="180" fill="#182c21" font-size="28" font-weight="600">Выход или привод</text><text x="1069" y="213" fill="#546553" font-size="20">Управляющий сигнал</text>
+<path d="M372 165H524" fill="none" stroke="#477357" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M872 165H1024" fill="none" stroke="#477357" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="48" y="342" width="510" height="96" rx="16" fill="#e3eadb"/><text x="75" y="381" fill="#243d2b" font-size="25">Браузер или USB-консоль</text><text x="75" y="416" fill="#546553" font-size="20">Настройка и наблюдение</text>
+<rect x="842" y="342" width="510" height="96" rx="16" fill="#e3eadb"/><text x="869" y="381" fill="#243d2b" font-size="25">Другая ESP32</text><text x="869" y="416" fill="#546553" font-size="20">Показания и команды по радиосвязи</text>
+<path d="M304 328V289H612V248" fill="none" stroke="#7c987c" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<path d="M1097 328V289H786V248" fill="none" stroke="#7c987c" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<text x="48" y="481" fill="#63725f" font-size="18">Схема принципа работы. Состав и доступность функций зависят от комплекта прошивки.</text>
+</g></svg>

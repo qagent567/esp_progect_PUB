@@ -1053,3 +1053,17 @@ body.light-theme .dashboard-card:hover {
     width: 100%;
   }
 }
+
+/* SVG Board Pin Badge Text Styles */
+.pin-badge-text {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: bold;
+  fill: #ffffff;
+  pointer-events: none;
+}
+
+body.light-theme .pin-badge-text {
+  fill: #000000;
+}
+
