@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420">
+  <title>Цикл опроса датчика с управляемым питанием</title>
+  <rect width="760" height="420" rx="20" fill="#081513"/>
+  <g font-family="Segoe UI,Arial,sans-serif">
+    <text x="30" y="43" font-size="15" letter-spacing="2" fill="#bcf284">ИЗМЕРЯТЬ ПО НЕОБХОДИМОСТИ</text>
+    <g fill="#102b22" stroke="#41664e"><rect x="30" y="68" width="330" height="116" rx="14"/><rect x="400" y="68" width="330" height="116" rx="14"/><rect x="400" y="232" width="330" height="116" rx="14"/><rect x="30" y="232" width="330" height="116" rx="14"/></g>
+    <g fill="#bcf284" font-size="18"><text x="50" y="98">01 / ВКЛЮЧИТЬ</text><text x="420" y="98">02 / СТАБИЛИЗИРОВАТЬ</text><text x="420" y="262">03 / ИЗМЕРИТЬ</text><text x="50" y="262">04 / ОТКЛЮЧИТЬ</text></g>
+    <g fill="#ecf4ed" font-size="20"><text x="50" y="135">Питание через ключ</text><text x="420" y="135">Выдержать задержку</text><text x="420" y="299">Получить показание</text><text x="50" y="299">До следующего опроса</text></g>
+    <g fill="#a6b8af" font-size="15"><text x="50" y="161">GPIO управляет внешним ключом</text><text x="420" y="161">Подбирается под датчик</text><text x="420" y="325">Передать в обработку</text><text x="50" y="325">Интервал задаёт пользователь</text></g>
+    <g fill="#bcf284" font-size="29"><text x="367" y="136">→</text><text x="551" y="217">↓</text><text x="367" y="302">←</text><text x="181" y="217">↑</text></g>
+    <text x="30" y="389" fill="#a6b8af" font-size="16">Принцип работы; конкретный цикл зависит от типа датчика.</text>
+  </g>
+</svg>

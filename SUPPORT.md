@@ -1,6 +1,6 @@
 # Вопросы, предложения и сообщения об ошибках
 
-[Главная](README.md) · [Диагностика](08_Troubleshooting.md)
+[Главная](README.md) · [Диагностика](docs/diagnostics.md)
 
 Для обычных вопросов используйте [Issues публичного репозитория](https://github.com/qagent567/esp_progect_PUB/issues). Автор — [qagent567](https://github.com/qagent567).
 
