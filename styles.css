@@ -102,6 +102,7 @@ body{background:
 .scenario-list article{transition:padding .3s,background .3s}
 .scenario-list article:hover{padding-left:18px;background:linear-gradient(90deg,rgba(188,242,132,.06),transparent 72%)}
 .faq details[open]{background:linear-gradient(90deg,rgba(188,242,132,.04),transparent)}
+.faq .faq-answer{padding:0 16px 24px 0;max-width:720px}.faq .faq-answer p{padding:0;margin-bottom:16px;font-size:15px;line-height:1.75}.faq .faq-answer .faq-short{padding:14px 16px;border-left:2px solid var(--lime);background:#bcf28408;border-radius:0 10px 10px 0;color:var(--text)}.faq-short strong{color:var(--lime)}.faq .faq-answer p:last-child{margin-bottom:0}.faq-link{display:inline-block;font-size:14px;margin-top:2px}
 .faq summary{transition:color .25s,padding-left .25s}
 .faq summary:hover{color:var(--lime);padding-left:8px}
 .faq details[open] summary::after{transform:rotate(180deg)}
