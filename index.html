@@ -8,6 +8,8 @@
   <meta name="description" content="AgriSwarm — проект локальной автоматики на ESP32. Датчики, правила и управление для теплиц, участков и учебных стендов. Возможности, демонстрация и документация.">
   <link rel="icon" type="image/jpeg" href="assets/vis-company.jpg">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="pages.css">
+  <link rel="stylesheet" href="luxury.css">
 </head>
 <body>
   <a class="skip" href="#main">Перейти к содержанию</a>
@@ -15,7 +17,7 @@
   <header class="header">
     <a class="brand company-brand" href="#main" aria-label="AgriSwarm — проект VIS-COMPANY, начало страницы"><img src="assets/vis-symbol.png" width="104" height="104" alt="Логотип VIS-COMPANY"></a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Меню <span aria-hidden="true">＋</span></button>
-    <nav id="navigation" aria-label="Основная навигация"><a href="#principle">Как работает</a><a href="#stand">Два мини-парника</a><a href="#possibilities">Возможности</a><a href="#scenarios">Применение</a><a href="#demonstration">Демонстрация</a><a class="nav-docs" href="https://github.com/qagent567/esp_progect_PUB">Публичный гид <span aria-hidden="true">↗</span></a></nav>
+    <nav id="navigation" aria-label="Основная навигация"><a href="index.html" aria-current="page">Обзор</a><a href="system.html">Система</a><a href="prototype.html">Концепт стенда</a><a href="interfaces.html">Интерфейсы</a><a class="nav-docs" href="https://github.com/qagent567/esp_progect_PUB">Публичный гид ↗</a></nav>
   </header>
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
@@ -27,7 +29,21 @@
         <div class="actions"><a class="button primary" href="#demonstration">Что покажем на стенде <span aria-hidden="true">↓</span></a><a class="text-link" href="#principle">Как это работает ↓</a></div>
         <p class="hero-note"><span>ESP32</span><span>Правила на плате</span><span>Инженерный прототип</span></p>
       </div>
-      <figure class="hero-art"><img src="assets/concept.png" width="1024" height="1024" alt="Концептуальная иллюстрация: теплица и связанные между собой электронные устройства" fetchpriority="high"><div class="hero-annotations" aria-hidden="true"><span>01 / ДАТЧИК</span><span>02 / ПРАВИЛО</span><span>03 / ДЕЙСТВИЕ</span></div><figcaption><span>AGRI SWARM / КОНЦЕПЦИЯ</span>Технологии рядом с землёй</figcaption></figure>
+      <figure class="hero-art luxury-stage" aria-label="Стилизованная объёмная модель будущего модуля AgriSwarm">
+        <div class="stage-halo" aria-hidden="true"></div><div class="stage-stars" aria-hidden="true"></div>
+        <div class="model-scene" aria-hidden="true"><div class="model-world">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="model-floor"></div>
+          <div class="greenhouse-model">
+            <div class="glass-house"><div class="glass-pane glass-front"></div><div class="glass-pane glass-back"></div><div class="glass-pane glass-left"></div><div class="glass-pane glass-right"></div><div class="glass-pane glass-top"><div class="grow-bar"></div></div>
+              <div class="soil-bed"></div><div class="plant plant-one"><i></i><i></i><i></i><i></i></div><div class="plant plant-two"><i></i><i></i><i></i><i></i></div><div class="plant plant-three"><i></i><i></i><i></i><i></i></div><div class="plant plant-four"><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="module-base"><div class="module-face module-front"><span class="model-wordmark">Agri<span>Swarm</span></span><div class="led-row"><i></i><i></i><i></i></div><div class="switch-bank"><b></b><b></b><b></b></div></div><div class="module-face module-back"></div><div class="module-face module-left"></div><div class="module-face module-right"><span>AGRI / 01</span></div><div class="module-face module-top"></div><div class="module-face module-bottom"></div></div>
+          </div>
+        </div></div>
+        <span class="stage-tag" aria-hidden="true"><i></i> LOCAL INTELLIGENCE</span><span class="stage-coordinates" aria-hidden="true">ESP32 / DESIGN STUDY</span>
+        <div class="stage-toolbar"><span>ОБЪЁМНЫЙ КОНЦЕПТ</span><button class="motion-toggle" type="button" aria-pressed="false" aria-label="Приостановить движение 3D-концепта">Пауза ↙</button></div>
+        <figcaption><span>AGRI SWARM / 3D-КОНЦЕПЦИЯ</span>Растения. Данные. Решения.</figcaption>
+      </figure>
     </section>
     <section class="project-brief" aria-label="Проект за полминуты">
       <article><span>ЗАДАЧА</span><h2>Меньше ручного контроля</h2><p>В теплице условия меняются в течение дня. Измерение полезно, когда за ним вовремя следует нужное действие.</p></article>
@@ -48,11 +64,15 @@
       </div>
       <p class="section-note">Для подключения реле и сервоприводов нужны подходящее питание, схема и проверка безопасного состояния выходов. Межузловой сценарий показывается только после проверки на двух платах.</p>
     </section>
+    <section class="section portal-section" aria-labelledby="explore-title">
+      <div class="section-head"><p class="eyebrow">ИССЛЕДУЙТЕ ПРОЕКТ</p><h2 id="explore-title">От идеи —<br>к деталям.</h2><p>Посмотрите, как устроена система, каким может стать стенд и как человек будет с ним взаимодействовать.</p></div>
+      <div class="portal-grid"><a class="portal-card" href="prototype.html"><img src="assets/modules-concept.png" alt="Концептуальный рендер двух мини-парников" loading="lazy"><div><span class="eyebrow">01 / ДИЗАЙН-КОНЦЕПТ</span><h3>Будущий стенд <span>↗</span></h3><p>Модули, корпус и доступ к электронике.</p></div></a><a class="portal-card" href="system.html"><div class="portal-symbol" aria-hidden="true">◉ <span>⟶</span> ◈</div><div><span class="eyebrow">02 / ЛОГИКА</span><h3>Внутри системы <span>↗</span></h3><p>Датчик, правило, действие. Попробуйте сами.</p></div></a><a class="portal-card" href="interfaces.html"><img src="assets/desktop-overview.png" alt="Обзор приложения AgriSwarm для ПК" loading="lazy"><div><span class="eyebrow">03 / ВЗАИМОДЕЙСТВИЕ</span><h3>Понятное управление <span>↗</span></h3><p>Компьютер, телефон и визуальная карта.</p></div></a></div>
+    </section>
     <section class="section setup" aria-labelledby="setup-title">
       <div class="section-head"><p class="eyebrow">НАСТРОЙКА БЕЗ ПЕРЕПРОШИВКИ</p><h2 id="setup-title">Сначала собираете логику.<br>Потом плата её исполняет.</h2><p>Пример пользовательского пути: назвать вход и выход, задать условие, сохранить настройку и проверить реакцию на стенде.</p></div>
       <div class="setup-grid">
         <div class="example-card" aria-label="Схематичный пример настройки правила"><div class="example-top"><span>ПРИМЕР ПРАВИЛА</span><span class="example-badge">Иллюстрация</span></div><div class="example-row"><small>ВХОД</small><strong>Температура парника А</strong></div><div class="example-row"><small>УСЛОВИЕ</small><strong>Выше выбранного порога</strong></div><div class="example-row"><small>ДЕЙСТВИЕ</small><strong>Включить выход вентиляции</strong></div><div class="example-result">Датчик <span>→</span> правило <span>→</span> выход</div></div>
-        <div class="setup-copy"><h3>От простого к гибкому</h3><p>Для первого запуска достаточно понятных имён устройств и одного правила. Более тонкие параметры — например, поведение датчика и тайм-ауты — нужны тем, кто настраивает конкретное оборудование.</p><p>В текущей разработке ПК-приложение и Android-клиент содержат средства чтения и сохранения карты на ESP32. Сквозную совместимость версий и разрешение одновременных правок ещё нужно проверять отдельно.</p><a class="text-link inline-link" href="https://github.com/qagent567/esp_progect_PUB">Изучить публичный гид ↗</a></div>
+        <div class="setup-copy"><h3>От простого к гибкому</h3><p>Для первого запуска достаточно понятных имён устройств и одного правила. Более тонкие параметры — например, поведение датчика и тайм-ауты — нужны тем, кто настраивает конкретное оборудование.</p><p>Карта помогает представить установку целиком. Перенос карты между ПК, ESP32 и Android пока требует доработки формата, подтверждения сохранения и проверки совместимого профиля связи.</p><a class="text-link inline-link" href="interfaces.html">Посмотреть интерфейсы ↗</a></div>
       </div>
     </section>
     <section class="section equipment" id="equipment" aria-labelledby="equipment-title">
@@ -124,5 +144,6 @@
   <footer><div class="footer-company"><img src="assets/vis-company.jpg" width="164" height="164" alt="VIS-COMPANY — Visionary, Intelligent, Solutions" loading="lazy"><div><a class="brand" href="#main">Agri<span>Swarm</span></a><p>Проект VIS-COMPANY.<br>Данные рядом с растениями.<br>Решения рядом с оборудованием.</p></div></div><div class="footer-links"><a href="https://github.com/qagent567">Автор проекта ↗</a><a href="https://github.com/qagent567/esp_progect_PUB/releases">Выпуски ↗</a><a href="https://github.com/qagent567/esp_progect_PUB">Лицензия и гид ↗</a><span>Прошивка с закрытым исходным кодом.</span></div></footer>
   <dialog class="image-dialog" aria-label="Просмотр снимка интерфейса"><button class="image-dialog-close" type="button" aria-label="Закрыть изображение">×</button><figure><img alt=""><figcaption></figcaption></figure></dialog>
   <script src="site.js" defer></script>
+  <script src="luxury.js" defer></script>
 </body>
 </html>

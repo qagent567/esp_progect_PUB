@@ -46,7 +46,7 @@ updateProgress();
 const revealTargets = document.querySelectorAll(
   '.project-brief article, .section-head, .steps article, .greenhouse, .setup-grid > *, ' +
   '.capability-grid article, .sensor-cycle li, .gallery-card, .feature, ' +
-  '.scenario-list article, .demo > *, .roadmap article, .faq-items, .closing > *'
+  '.scenario-list article, .demo > *, .roadmap article, .faq-items, .closing > *, .portal-card, .visual-panel, .detail-card'
 );
 let revealObserver;
 
@@ -88,7 +88,7 @@ function moveHero() {
   pointerFrame = 0;
 }
 
-heroArt.addEventListener('pointermove', event => {
+heroArt?.addEventListener('pointermove', event => {
   if (!finePointer.matches || reducedMotion.matches) return;
   const bounds = heroArt.getBoundingClientRect();
   pointerX = ((event.clientX - bounds.left) / bounds.width - 0.5) * 14;
@@ -96,7 +96,7 @@ heroArt.addEventListener('pointermove', event => {
   if (!pointerFrame) pointerFrame = requestAnimationFrame(moveHero);
 });
 
-heroArt.addEventListener('pointerleave', () => {
+heroArt?.addEventListener('pointerleave', () => {
   pointerX = 0;
   pointerY = 0;
   if (!pointerFrame) pointerFrame = requestAnimationFrame(moveHero);
@@ -116,7 +116,7 @@ if (finePointer.matches) {
 // A small decorative network behind the hero. Pause it offscreen and for reduced motion.
 const hero = document.querySelector('.hero');
 const networkCanvas = document.querySelector('.hero-network');
-const networkContext = networkCanvas.getContext('2d');
+const networkContext = networkCanvas?.getContext('2d');
 if (networkContext) {
   let networkWidth = 0;
   let networkHeight = 0;
@@ -213,7 +213,7 @@ if (networkContext) {
 // Images remain ordinary links when dialog support or JavaScript is unavailable.
 const imageDialog = document.querySelector('.image-dialog');
 let imageTrigger = null;
-if (typeof imageDialog.showModal === 'function') {
+if (imageDialog && typeof imageDialog.showModal === 'function') {
   document.querySelectorAll('.gallery-image').forEach(link => {
     link.addEventListener('click', event => {
       event.preventDefault();
